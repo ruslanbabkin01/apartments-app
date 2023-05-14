@@ -1,22 +1,40 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div :id="$style.app">
+    <h1>{{ title }}</h1>
+    <UniversalButton @click="increment" outlined>Click me</UniversalButton>
+    <DirectiveTest></DirectiveTest>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import DirectiveTest from './components/DirectiveTest.vue'
+import UniversalButton from './components/UniversalButton.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
-  }
+    UniversalButton,
+    DirectiveTest,
+  },
+  data() {
+    return {
+      amountOfClicks: 0,
+    }
+  },
+  computed: {
+    title() {
+      return `Amount of clicks ${this.amountOfClicks}`
+    },
+  },
+  methods: {
+    increment() {
+      this.amountOfClicks += 1
+    },
+  },
 }
 </script>
 
-<style>
+<style module>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
