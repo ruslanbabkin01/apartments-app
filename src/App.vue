@@ -2,19 +2,22 @@
   <div :id="$style.app">
     <h1>{{ title }}</h1>
     <UniversalButton @click="increment" outlined>Click me</UniversalButton>
-    <DirectiveTest></DirectiveTest>
+    <DirectivesTest />
+    <StarRating :rating="4.5" />
   </div>
 </template>
 
 <script>
-import DirectiveTest from './components/DirectiveTest.vue'
+import DirectivesTest from './components/DirectivesTest.vue'
 import UniversalButton from './components/UniversalButton.vue'
+import StarRating from './components/StarRating.vue'
 
 export default {
   name: 'App',
   components: {
     UniversalButton,
-    DirectiveTest,
+    DirectivesTest,
+    StarRating,
   },
   data() {
     return {

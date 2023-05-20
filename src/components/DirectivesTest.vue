@@ -18,7 +18,7 @@
 
 <script>
 export default {
-  name: 'DirectiveTest',
+  name: 'DirectivesTest',
   data() {
     return {
       isVisible: true,

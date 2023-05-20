@@ -3,6 +3,7 @@
     v-bind:type="type"
     v-on="$listeners"
     :class="{ btn: true, 'btn--outlined': outlined }"
+    style="opacity: 1"
   >
     <slot></slot>
   </button>
