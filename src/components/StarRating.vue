@@ -63,11 +63,11 @@ export default {
   flex-shrink: 0;
 
   &--colored {
-    background: url('/src/img/star-orange.svg') center no-repeat;
+    background: url('/public/img/star-orange.svg') center no-repeat;
   }
 
   &--outlined {
-    background: url('/src/img/star-outlined.svg') center no-repeat;
+    background: url('/public/img/star-outlined.svg') center no-repeat;
   }
 }
 </style>

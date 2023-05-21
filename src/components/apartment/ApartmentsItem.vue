@@ -3,8 +3,8 @@
     <div class="apartments-item__inner">
       <img :src="imgSrc" alt="apart-photo" class="apartments-item__photo" />
       <div class="apartments-item__content">
-        <p class="apartments-item__descriptions">
-          {{ description }}
+        <p class="apartments-item__description">
+          {{ descr }}
         </p>
         <div class="apartments-item__rating">
           <StarRating :rating="rating" />
@@ -24,7 +24,7 @@ export default {
     StarRating,
   },
   props: {
-    description: {
+    descr: {
       type: String,
       default: '',
     },
@@ -48,7 +48,6 @@ export default {
 .apartments-item {
   position: relative;
   max-width: 350px;
-  padding: 0 20px;
 
   &__inner {
     position: relative;
@@ -74,6 +73,8 @@ export default {
 
   &__description {
     margin-bottom: 20px;
+    max-height: calc(1em * 1.4 * 3);
+    overflow: hidden;
   }
 
   &__rating {
