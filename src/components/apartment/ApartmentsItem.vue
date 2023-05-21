@@ -1,5 +1,5 @@
 <template>
-  <div class="apartments-item">
+  <div class="apartments-item" @click="log(2, $event)">
     <div class="apartments-item__inner">
       <img :src="imgSrc" alt="apart-photo" class="apartments-item__photo" />
       <div class="apartments-item__content">
@@ -39,6 +39,12 @@ export default {
     imgSrc: {
       type: String,
       default: '',
+    },
+  },
+  methods: {
+    log(i, event) {
+      console.log(i)
+      console.log(event)
     },
   },
 }
