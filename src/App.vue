@@ -1,9 +1,11 @@
 <template>
-  <div :id="$style.app">
+  <div id="app">
     <h2>{{ text }}</h2>
-    <CustomSelect :items="['name', 'label', 'salary']" />
-    <CustomInput v-model="text" />
-    <ApartmentsList :items="apartments">
+    <Container>
+      <ApartmentFilterForm class="apartments-filter" @submit="filter" />
+    </Container>
+    <p v-if="!filteredApartments.length">Nothing found</p>
+    <ApartmentsList v-else :items="filteredApartments">
       <template v-slot:apartment="{ apartment }">
         <ApartmentsItem
           :key="apartment.id"
@@ -12,6 +14,7 @@
           :imgSrc="apartment.imgUrl"
           :price="apartment.price"
           class="apartments-list__item"
+          @click.native="handleItemClick"
         />
       </template>
     </ApartmentsList>
@@ -22,36 +25,55 @@
 import ApartmentsList from './components/apartment/ApartmentsList.vue'
 import ApartmentsItem from './components/apartment/ApartmentsItem.vue'
 import apartments from './components/apartment/apartments'
-import CustomInput from './components/shared/CustomInput.vue'
-import CustomSelect from './components/shared/CustomSelect.vue'
+import ApartmentFilterForm from './components/apartment/ApartmentFilterForm.vue'
+import Container from './components/shared/Container.vue'
 export default {
   name: 'App',
   components: {
     ApartmentsList,
     ApartmentsItem,
-    CustomInput,
-    CustomSelect,
+    ApartmentFilterForm,
+    Container,
   },
   data() {
     return {
-      apartments,
       text: '',
+      apartments,
+      filters: {
+        city: '',
+        price: 0,
+      },
     }
   },
   computed: {
-    title() {
-      return `Amount of clicks ${this.amountOfClicks}`
+    filteredApartments() {
+      return this.filterByCityName(this.filterByPrice(this.apartments))
     },
   },
   methods: {
-    increment() {
-      this.amountOfClicks += 1
+    filter({ city, price }) {
+      this.filters.city = city
+      this.filters.price = price
+    },
+    filterByCityName(apartments) {
+      if (!this.filters.city) return apartments
+
+      return apartments.filter(apartment => {
+        return apartment.location.city === this.filters.city
+      })
+    },
+    filterByPrice(apartments) {
+      if (!this.filters.price) return apartments
+
+      return apartments.filter(apartment => {
+        return apartment.price >= this.filters.price
+      })
     },
   },
 }
 </script>
 
-<style module>
+<style lang="scss" scoped>
 #app {
   font-family: Montserrat, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -59,5 +81,9 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+.apartments-filter {
+  margin-bottom: 40px;
 }
 </style>
