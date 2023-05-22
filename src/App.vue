@@ -1,23 +1,29 @@
 <template>
   <div id="app">
-    <h2>{{ text }}</h2>
-    <Container>
-      <ApartmentFilterForm class="apartments-filter" @submit="filter" />
-    </Container>
-    <p v-if="!filteredApartments.length">Nothing found</p>
-    <ApartmentsList v-else :items="filteredApartments">
-      <template v-slot:apartment="{ apartment }">
-        <ApartmentsItem
-          :key="apartment.id"
-          :descr="apartment.descr"
-          :rating="apartment.rating"
-          :imgSrc="apartment.imgUrl"
-          :price="apartment.price"
-          class="apartments-list__item"
-          @click.native="handleItemClick"
-        />
-      </template>
-    </ApartmentsList>
+    <div class="content">
+      <h2>{{ text }}</h2>
+      <Header />
+      <Container>
+        <ApartmentFilterForm class="apartments-filter" @submit="filter" />
+      </Container>
+      <Container>
+        <p v-if="!filteredApartments.length">Nothing found</p>
+        <ApartmentsList v-else :items="filteredApartments">
+          <template v-slot:apartment="{ apartment }">
+            <ApartmentsItem
+              :key="apartment.id"
+              :descr="apartment.descr"
+              :rating="apartment.rating"
+              :imgSrc="apartment.imgUrl"
+              :price="apartment.price"
+              class="apartments-list__item"
+              @click.native="handleItemClick"
+            />
+          </template>
+        </ApartmentsList>
+      </Container>
+    </div>
+    <Footer />
   </div>
 </template>
 
@@ -27,6 +33,8 @@ import ApartmentsItem from './components/apartment/ApartmentsItem.vue'
 import apartments from './components/apartment/apartments'
 import ApartmentFilterForm from './components/apartment/ApartmentFilterForm.vue'
 import Container from './components/shared/Container.vue'
+import Footer from './components/Footer.vue'
+import Header from './components/Header.vue'
 export default {
   name: 'App',
   components: {
@@ -34,6 +42,8 @@ export default {
     ApartmentsItem,
     ApartmentFilterForm,
     Container,
+    Footer,
+    Header,
   },
   data() {
     return {
@@ -78,9 +88,15 @@ export default {
   font-family: Montserrat, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  padding-top: 120px;
+  flex-grow: 1;
 }
 
 .apartments-filter {

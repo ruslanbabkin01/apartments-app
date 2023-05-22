@@ -1,11 +1,7 @@
 <template>
   <form class="form" @submit.prevent="handleSubmit">
-    <CustomSelect
-      class="form__select"
-      :items="['name', 'label', 'salary']"
-      v-model="city"
-    />
-    <CustomInput v-model="price" placeholder="Price, from..." />
+    <CustomSelect class="form__select" :items="cities" v-model="city" />
+    <CustomInput v-model="price" placeholder="Price, from" />
     <UniversalButton type="submit" class="form__submit"
       >Housing selection</UniversalButton
     >
@@ -29,7 +25,7 @@ export default {
   computed: {
     cities() {
       return [
-        { value: '', label: 'Город', selected: true },
+        { value: '', label: 'City', selected: true },
         'Kyiv',
         'Odesa',
         'Poltava',
