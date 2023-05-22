@@ -1,9 +1,10 @@
 <template>
   <div id="app">
     <div class="content">
-      <h2>{{ text }}</h2>
       <Header />
+      <h2>{{ text }}</h2>
       <Container>
+        <router-view></router-view>
         <ApartmentFilterForm class="apartments-filter" @submit="filter" />
       </Container>
       <Container>
