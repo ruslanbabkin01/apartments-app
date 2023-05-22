@@ -12,6 +12,9 @@ import Container from '@/components/shared/Container.vue'
 export default {
   name: 'ApartmentPage',
   components: { Container },
+  mounted() {
+    console.log(this.$route.params)
+  },
 }
 </script>
 
