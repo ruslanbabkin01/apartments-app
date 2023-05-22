@@ -1,18 +1,20 @@
-import Foo from './pages/Foo'
-import Bar from './pages/Bar'
+import HomePage from './pages/HomePage'
+import ApartmentPage from './pages/ApartmentPage'
 import VueRouter from 'vue-router'
 
 const routes = [
   {
-    path: '/foo',
-    component: Foo,
+    path: '/',
+    component: HomePage,
+    name: 'home',
   },
   {
-    path: '/bar',
-    component: Bar,
+    path: '/apartment',
+    component: ApartmentPage,
+    name: 'apartment',
   },
 ]
 
-const router = new VueRouter({ routes })
+const router = new VueRouter({ routes, mode: 'history' })
 
 export default router
