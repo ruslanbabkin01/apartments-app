@@ -28,5 +28,6 @@ export default {
   background-color: $secondary-color;
   height: 60px;
   padding: 16px 0;
+  z-index: 100;
 }
 </style>

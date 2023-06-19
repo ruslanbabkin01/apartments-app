@@ -1,24 +1,26 @@
 <template>
   <main class="homepage">
-    <Container>
-      <ApartmentFilterForm class="apartments-filter" @submit="filter" />
-    </Container>
-    <Container>
-      <p v-if="!filteredApartments.length">Nothing found</p>
-      <ApartmentsList v-else :items="filteredApartments">
-        <template v-slot:apartment="{ apartment }">
-          <ApartmentsItem
-            :key="apartment.id"
-            :id="apartment.id"
-            :descr="apartment.descr"
-            :rating="apartment.rating"
-            :imgSrc="apartment.imgUrl"
-            :price="apartment.price"
-            class="apartments-list__item"
-          />
-        </template>
-      </ApartmentsList>
-    </Container>
+    <SectionWithHeaderSpacer>
+      <Container>
+        <ApartmentFilterForm class="apartments-filter" @submit="filter" />
+      </Container>
+      <Container>
+        <p v-if="!filteredApartments.length">Nothing found</p>
+        <ApartmentsList v-else :items="filteredApartments">
+          <template v-slot:apartment="{ apartment }">
+            <ApartmentsItem
+              :key="apartment.id"
+              :id="apartment.id"
+              :descr="apartment.descr"
+              :rating="apartment.rating"
+              :imgSrc="apartment.imgUrl"
+              :price="apartment.price"
+              class="apartments-list__item"
+            />
+          </template>
+        </ApartmentsList>
+      </Container>
+    </SectionWithHeaderSpacer>
   </main>
 </template>
 
@@ -27,8 +29,8 @@ import ApartmentsList from '../components/apartment/ApartmentsList.vue'
 import ApartmentsItem from '../components/apartment/ApartmentsItem.vue'
 import ApartmentFilterForm from '../components/apartment/ApartmentFilterForm.vue'
 import Container from '../components/shared/Container.vue'
+import SectionWithHeaderSpacer from '../components/shared/SectionWithHeaderSpacer.vue'
 import { getApartmentsList } from '@/services/apartmentsAPI'
-// import apartments from '../db/apartments'
 
 export default {
   name: 'HomePage',
@@ -37,6 +39,7 @@ export default {
     ApartmentsItem,
     ApartmentFilterForm,
     Container,
+    SectionWithHeaderSpacer,
   },
   data() {
     return {

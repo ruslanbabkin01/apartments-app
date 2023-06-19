@@ -16,7 +16,7 @@ export default {
   components: {
     Footer,
     Header,
-  }
+  },
 }
 </script>
 
@@ -32,8 +32,6 @@ export default {
 }
 
 .content {
-  padding: 120px 100px;
   flex-grow: 1;
 }
-
 </style>

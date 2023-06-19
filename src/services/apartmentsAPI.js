@@ -1,8 +1,8 @@
-import axios from 'axios'
+import { axiosInstance } from './axiosInstance'
 
-const axiosInstance = axios.create({
-  baseURL: 'http://localhost:3001/',
-})
+// export const loginUser = payload => {
+//   return axiosInstance.post('/users/login', payload)
+// }
 
 export const getApartmentsList = () => {
   return axiosInstance.get('/apartments')
