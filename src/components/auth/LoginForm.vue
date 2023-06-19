@@ -78,12 +78,15 @@ export default {
       const isFormValid = this.$refs.form.validate()
       if (isFormValid) {
         try {
+          this.loading = true
           // const { data } = await loginUser(this.formData)
           // console.log(data)
           console.log(this.formData)
           form.reset()
         } catch (error) {
           console.log(error)
+        } finally {
+          this.loading = false
         }
       }
     },

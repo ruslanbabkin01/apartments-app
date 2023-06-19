@@ -36,7 +36,7 @@
         :rules="confirmPassword"
         class="register__input"
       />
-      <UniversalButton class="register__btn" type="submit"
+      <UniversalButton class="register__btn" type="submit" :loading="loading"
         >Sign Up</UniversalButton
       >
     </Form>
@@ -68,6 +68,7 @@ export default {
   },
   data() {
     return {
+      loading: false,
       formData: {
         name: '',
         email: '',
@@ -104,17 +105,20 @@ export default {
   },
   methods: {
     async handleSubmit() {
-      const { form } = this.$refs;
+      const { form } = this.$refs
       const isFormValid = this.$refs.form.validate()
       const { name, password, email } = this.formData
       if (isFormValid) {
         try {
+          this.loading = true
           // const { data } = await registerUser(name, password,email)
           // console.log(data)
           console.log(name, password, email)
           form.reset()
         } catch (error) {
           console.log(error)
+        } finally {
+          this.loading = false
         }
       }
     },
