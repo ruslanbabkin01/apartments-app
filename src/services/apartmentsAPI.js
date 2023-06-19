@@ -4,6 +4,10 @@ import { axiosInstance } from './axiosInstance'
 //   return axiosInstance.post('/users/login', payload)
 // }
 
+// export const registerUser = payload => {
+//   return axiosInstance.post('/users/register', payload)
+// }
+
 export const getApartmentsList = () => {
   return axiosInstance.get('/apartments')
 }

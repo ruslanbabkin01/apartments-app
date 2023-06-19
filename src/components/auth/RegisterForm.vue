@@ -1,14 +1,22 @@
 <template>
-  <AuthContainer class="login">
-    <MainTitle class="login__title">Login</MainTitle>
-    <Form @submit.prevent="handleSubmit" ref="form" class="login__form">
+  <AuthContainer class="register">
+    <MainTitle class="register__title">Register</MainTitle>
+    <Form @submit.prevent="handleSubmit" ref="form" class="register__form">
+      <CustomInput
+        v-model="formData.name"
+        placeholder="Name"
+        autocomplete="username"
+        name="name"
+        :rules="nameRules"
+        class="register__input"
+      />
       <CustomInput
         v-model="formData.email"
         placeholder="Email"
         autocomplete="email"
         name="email"
         :rules="emailRules"
-        class="login__input"
+        class="register__input"
       />
       <CustomInput
         v-model="formData.password"
@@ -17,10 +25,19 @@
         type="password"
         name="password"
         :rules="passwordRules"
-        class="login__input"
+        class="register__input"
       />
-      <UniversalButton class="login__btn" type="submit"
-        >Sign In</UniversalButton
+      <CustomInput
+        v-model="formData.confirmPassword"
+        placeholder="Confirm password"
+        autocomplete="current-password"
+        type="password"
+        name="password"
+        :rules="confirmPassword"
+        class="register__input"
+      />
+      <UniversalButton class="register__btn" type="submit"
+        >Sign Up</UniversalButton
       >
     </Form>
   </AuthContainer>
@@ -38,10 +55,10 @@ import {
   isRequired,
 } from '../../utils/validationRules'
 // eslint-disable-next-line no-unused-vars
-import { loginUser } from '../../services/apartmentsAPI'
+import { registerUser } from '../../services/apartmentsAPI'
 
 export default {
-  name: 'LoginForm',
+  name: 'RegisterForm',
   components: {
     Form,
     CustomInput,
@@ -52,8 +69,10 @@ export default {
   data() {
     return {
       formData: {
+        name: '',
         email: '',
         password: '',
+        confirmPassword: '',
       },
     }
   },
@@ -65,22 +84,34 @@ export default {
         isRequired,
       }
     },
+    nameRules() {
+      return [this.rules.isRequired]
+    },
     emailRules() {
       return [this.rules.isRequired, this.rules.emailValidation]
     },
     passwordRules() {
-      return [this.rules.isRequired]
+      return [this.rules.isRequired, this.rules.passwordValidation]
+    },
+    confirmPassword() {
+      return [
+        val => ({
+          hasPassed: val === this.formData.password,
+          message: 'Password mismatch',
+        }),
+      ]
     },
   },
   methods: {
     async handleSubmit() {
-      const { form } = this.$refs
+      const { form } = this.$refs;
       const isFormValid = this.$refs.form.validate()
+      const { name, password, email } = this.formData
       if (isFormValid) {
         try {
-          // const { data } = await loginUser(this.formData)
+          // const { data } = await registerUser(name, password,email)
           // console.log(data)
-          console.log(this.formData)
+          console.log(name, password, email)
           form.reset()
         } catch (error) {
           console.log(error)
@@ -92,7 +123,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.login {
+.register {
   &__form {
     display: block;
     flex-direction: column;

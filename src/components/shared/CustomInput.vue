@@ -2,9 +2,11 @@
   <div class="wrapper-input">
     <input
       v-on="listeners"
+      @blur="blurHandler"
       v-bind="$attrs"
       class="custom-input"
       :class="!isValid && 'custom-input--error'"
+      :value="value"
     />
     <span v-if="!isValid" class="custom-input__error">{{ error }}</span>
   </div>
@@ -17,6 +19,7 @@ export default {
     return {
       isValid: true,
       error: '',
+      isFirstInput: true,
     }
   },
   inject: {
@@ -48,9 +51,9 @@ export default {
     },
   },
   watch: {
-    value(value) {
-      this.validate(value)
-      console.log(value)
+    value() {
+      if (this.isFirstInput) return
+      this.validate()
     },
   },
   mounted() {
@@ -74,7 +77,15 @@ export default {
       })
       return this.isValid
     },
+    blurHandler() {
+      if (this.isFirstInput) {
+        this.validate()
+      }
+      this.isFirstInput = false
+    },
     reset() {
+      this.isFirstInput = true
+      this.isValid = true
       this.$emit('input', '')
     },
   },
