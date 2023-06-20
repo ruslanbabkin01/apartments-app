@@ -19,7 +19,7 @@
         :rules="passwordRules"
         class="login__input"
       />
-      <UniversalButton class="login__btn" type="submit"
+      <UniversalButton class="login__btn" type="submit" :loading="loading"
         >Sign In</UniversalButton
       >
     </Form>
@@ -85,6 +85,11 @@ export default {
           form.reset()
         } catch (error) {
           console.log(error)
+          this.$notify({
+            type: 'error',
+            title: 'Error',
+            text: error.message,
+          })
         } finally {
           this.loading = false
         }
