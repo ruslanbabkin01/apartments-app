@@ -6,21 +6,59 @@
     </div>
     <img :src="apartment.imgUrl" alt="" class="apartment-main-info__photo" />
     <p class="apartment-main-info__description">{{ apartment.descr }}</p>
+    <div class="apartment-main-info__btn">
+      <UniversalButton @click="handleApartmentsBooking" :loading="isLoading"
+        >Reserve</UniversalButton
+      >
+    </div>
   </article>
 </template>
 
 <script>
 import StarRating from '../StarRating.vue'
+import UniversalButton from '../shared/UniversalButton.vue'
+import { bookApartment } from '../../services/ordersAPI'
 
 export default {
   name: 'ApartmentsMainInfo',
+  components: { StarRating, UniversalButton },
   props: {
     apartment: {
       type: Object,
       required: true,
     },
   },
-  components: { StarRating },
+  data() {
+    return {
+      isLoading: false,
+    }
+  },
+  methods: {
+    async handleApartmentsBooking() {
+      const body = {
+        apartmentId: this.$route.params.id,
+        date: Date.now(),
+      }
+
+      try {
+        this.isLoading = true
+        await bookApartment(body)
+
+        this.$notify({
+          type: 'success',
+          title: 'Order added',
+        })
+      } catch (error) {
+        this.$notify({
+          type: 'error',
+          title: 'Error',
+          text: error.message,
+        })
+      } finally {
+        this.isLoading = false
+      }
+    },
+  },
 }
 </script>
 
@@ -45,6 +83,11 @@ export default {
   &__description {
     line-height: 1.3;
     margin-top: 30px;
+  }
+
+  &__btn {
+    margin-top: 20px;
+    text-align: center;
   }
 }
 </style>
