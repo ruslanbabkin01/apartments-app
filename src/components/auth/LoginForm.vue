@@ -1,6 +1,6 @@
 <template>
   <AuthContainer class="login">
-    <MainTitle class="login__title">Login</MainTitle>
+    <MainTitle class="login__title">Log In</MainTitle>
     <Form @submit.prevent="handleSubmit" ref="form" class="login__form">
       <CustomInput
         v-model="formData.email"

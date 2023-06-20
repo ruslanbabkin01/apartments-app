@@ -4,6 +4,7 @@ import ApartmentPage from './pages/ApartmentPage'
 import ErrorPage from './pages/ErrorPage'
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
+import OrdersPage from './pages/OrdersPage'
 
 const routes = [
   {
@@ -25,6 +26,11 @@ const routes = [
     path: '/register',
     component: RegisterPage,
     name: 'register',
+  },
+  {
+    path: '/orders',
+    component: OrdersPage,
+    name: 'orders',
   },
   {
     path: '*',

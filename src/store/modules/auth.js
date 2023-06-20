@@ -1,4 +1,4 @@
-import { loginUser, registerUser } from '../../services/apartmentsAPI'
+import { loginUser, registerUser, logoutUser } from '../../services/authAPI'
 
 const initialState = {
   user: null,
@@ -20,6 +20,9 @@ export default {
     SET_TOKEN(state, token) {
       state.token = token
     },
+    CLEAR_USER_DATA(state) {
+      Object.assign(state, { ...initialState })
+    },
   },
   actions: {
     async loginUser({ commit }, payload) {
@@ -35,6 +38,10 @@ export default {
 
       commit('SET_USER_DATA', user)
       commit('SET_TOKEN', token)
+    },
+    async logoutUser({ commit }) {
+      await logoutUser()
+      commit('CLEAR_USER_DATA')
     },
   },
 }
