@@ -37,8 +37,6 @@ import {
   passwordValidation,
   isRequired,
 } from '../../utils/validationRules'
-// eslint-disable-next-line no-unused-vars
-import { loginUser } from '../../services/apartmentsAPI'
 
 export default {
   name: 'LoginForm',
@@ -75,14 +73,14 @@ export default {
   methods: {
     async handleSubmit() {
       const { form } = this.$refs
-      const isFormValid = this.$refs.form.validate()
+      const isFormValid = form.validate()
       if (isFormValid) {
         try {
           this.loading = true
-          // const { data } = await loginUser(this.formData)
-          // console.log(data)
-          console.log(this.formData)
+          // this.$store.dispatch('login', this.formData)
+
           form.reset()
+          this.$router.push({ name: 'home' })
         } catch (error) {
           console.log(error)
           this.$notify({

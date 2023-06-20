@@ -54,8 +54,6 @@ import {
   passwordValidation,
   isRequired,
 } from '../../utils/validationRules'
-// eslint-disable-next-line no-unused-vars
-import { registerUser } from '../../services/apartmentsAPI'
 
 export default {
   name: 'RegisterForm',
@@ -106,15 +104,15 @@ export default {
   methods: {
     async handleSubmit() {
       const { form } = this.$refs
-      const isFormValid = this.$refs.form.validate()
+      const isFormValid = form.validate()
       const { name, password, email } = this.formData
       if (isFormValid) {
         try {
           this.loading = true
-          // const { data } = await registerUser(name, password,email)
-          // console.log(data)
-          console.log(name, password, email)
+          // const { user, token } = data;
+          await this.$store.dispatch('register', { name, password, email })
           form.reset()
+          this.$router.push({ name: 'home' })
         } catch (error) {
           console.log(error)
           this.$notify({
