@@ -77,7 +77,7 @@ export default {
       if (isFormValid) {
         try {
           this.loading = true
-          // this.$store.dispatch('login', this.formData)
+          // this.$store.dispatch('auth/loginUser', this.formData)
 
           form.reset()
           this.$router.push({ name: 'home' })

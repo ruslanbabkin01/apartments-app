@@ -54,6 +54,7 @@ import {
   passwordValidation,
   isRequired,
 } from '../../utils/validationRules'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'RegisterForm',
@@ -102,15 +103,15 @@ export default {
     },
   },
   methods: {
+    ...mapActions('auth', ['registerUser']),
     async handleSubmit() {
       const { form } = this.$refs
       const isFormValid = form.validate()
-      const { name, password, email } = this.formData
+      // const { name, password, email } = this.formData
       if (isFormValid) {
         try {
           this.loading = true
-          // const { user, token } = data;
-          await this.$store.dispatch('register', { name, password, email })
+          // await this.registerUser({ name, password, email })
           form.reset()
           this.$router.push({ name: 'home' })
         } catch (error) {
